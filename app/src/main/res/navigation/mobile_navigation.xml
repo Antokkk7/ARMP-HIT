@@ -1,0 +1,30 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="fr.antokj.windriders2.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_lreseau"
+        android:name="fr.antokj.windriders2.lreseau.LreseauFragment"
+        android:label="Les réseaux"
+        tools:layout="@layout/fragment_lreseau" />
+
+    <fragment
+        android:id="@+id/nav_mreseau"
+        android:name="fr.antokj.windriders2.mreseau.MreseauFragment"
+        android:label="Mon réseau"
+        tools:layout="@layout/fragment_mreseau" />
+
+    <fragment
+        android:id="@+id/nav_whatever"
+        android:name="fr.antokj.windriders2.whatever.WhateverFragment"
+        android:label="Whatever"
+        tools:layout="@layout/fragment_whatever" />
+</navigation>
