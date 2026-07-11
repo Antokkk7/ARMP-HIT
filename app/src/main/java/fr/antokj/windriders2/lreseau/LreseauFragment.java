@@ -49,7 +49,7 @@ public class LreseauFragment extends Fragment {
         View root = binding.getRoot();
         executorService = Executors.newFixedThreadPool(4);
 
-        viewModel = new ViewModelProvider(this).get(LreseauViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(LreseauViewModel.class);
 
         binding.buttonReseau1.setText("Scan réseau WiFi");
         binding.buttonReseau1.setOnClickListener(v -> scanWifiNetwork());
@@ -527,6 +527,10 @@ public class LreseauFragment extends Fragment {
                 .setView(listView)
                 .setPositiveButton("OK", null)
                 .show();
+    }
+
+    public void clearViewModelData() {
+        viewModel.clearScanResults();
     }
 
     @Override

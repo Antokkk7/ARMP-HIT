@@ -1,17 +1,11 @@
 package fr.antokj.windriders2.lreseau;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Pair;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class LreseauViewModel extends ViewModel {
     // Données du scan de sous-réseau
@@ -34,6 +28,12 @@ public class LreseauViewModel extends ViewModel {
     public void setIsScanning(boolean scanning) { isScanning.setValue(scanning); }
     public void setDevices(List<DeviceInfo> devicesList) { devices.setValue(devicesList); }
 
+    public void clearScanResults() {
+        allIps.setValue(new ArrayList<>());
+        usedIps.setValue(new ArrayList<>());
+        devices.setValue(new ArrayList<>());
+        isScanning.setValue(false);
+    }
     public static class DeviceInfo {
         public String mac;
         public String ip;

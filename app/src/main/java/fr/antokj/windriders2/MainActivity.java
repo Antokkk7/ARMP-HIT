@@ -1,7 +1,9 @@
 package fr.antokj.windriders2;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -21,6 +24,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import fr.antokj.windriders2.databinding.ActivityMainBinding;
+import fr.antokj.windriders2.lreseau.LreseauViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,7 +74,43 @@ public class MainActivity extends AppCompatActivity {
             showThemeDialog();
             return true;
         }
+        else if (item.getItemId() == R.id.action_clear) {
+            showClearDataDialog();
+            return true;
+        }
+        else if (item.getItemId() == R.id.action_project) {
+            openProjectUrl();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showClearDataDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Effacer les données")
+                .setMessage("Voulez-vous vraiment effacer toutes les données enregistrées ?")
+                .setPositiveButton("Oui", (dialog, which) -> {
+                    clearAllData();
+
+                    new ViewModelProvider(this).get(LreseauViewModel.class).clearScanResults();
+
+                    recreate();
+                    Toast.makeText(this, "Données effacées", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("Non", null)
+                .show();
+    }
+
+    private void clearAllData() {
+        // Clear le choix de thème
+        getSharedPreferences("AppPrefs", MODE_PRIVATE).edit().clear().apply();
+        // Clear les scans
+        getSharedPreferences("ScanPrefs", MODE_PRIVATE).edit().clear().apply();
+    }
+
+    private void openProjectUrl() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Antokkk7/ARMP-HIT"));
+        startActivity(browserIntent);
     }
 
     @Override
