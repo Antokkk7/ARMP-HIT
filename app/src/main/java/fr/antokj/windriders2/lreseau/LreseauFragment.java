@@ -463,6 +463,9 @@ public class LreseauFragment extends Fragment {
     }
 
     private void showSubnetScanResult(List<String> allIps, List<String> usedIps) {
+
+        String myIp = getLocalIpAddress();
+
         ListView listView = new ListView(requireContext());
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 requireContext(),
@@ -475,9 +478,14 @@ public class LreseauFragment extends Fragment {
                 TextView text = view.findViewById(android.R.id.text1);
                 String ip = getItem(position);
                 text.setText(ip);
-                if (usedIps.contains(ip)) {
+
+                if (ip.equals(myIp)) {
+                    text.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.holo_green_dark));
+                }
+                else if (usedIps.contains(ip)) {
                     text.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark));
-                } else {
+                }
+                else {
                     text.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.darker_gray));
                 }
                 return view;
